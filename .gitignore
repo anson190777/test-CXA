@@ -1,0 +1,10 @@
+/node_modules
+*.log
+.idea/
+.env/
+.env
+*.*~
+.vs/
+env
+/env
+./env
