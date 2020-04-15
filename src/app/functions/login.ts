@@ -19,7 +19,7 @@ export const login = async (ctx: any) => {
       email: user.email
     });
 
-    ctx.status = 201;
+    ctx.status = 200;
     ctx.body = {
       access_token: acToken
     };
