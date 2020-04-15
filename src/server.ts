@@ -30,6 +30,8 @@ start();
 const shutdown = (signal: any) => async (err: any) => {
   console.log(`${signal}...`);
   if (err) console.error(err.stack || err);
+
+  await MongoHelper.disconnect();
   console.info(`${signal} signal received.`);
 };
 

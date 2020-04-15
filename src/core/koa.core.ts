@@ -37,7 +37,6 @@ export const koaCore = (router: any, console: any) => {
         ctx.status = e.statusCode || e.status || 500;
         ctx.body = {
           errors: e.errors,
-          detail: process.env.env === 'development' ? e : undefined,
         };
 
         ctx.app.emit('error', e, ctx);
