@@ -1,12 +1,11 @@
-"use strict";
-import * as Koa from 'koa';
-import * as bodyParser from 'koa-body';
-import * as Router from 'koa-router';
-import * as koaLogger from 'koa-logger';
-import * as createError from 'http-errors';
-import * as cors from '@koa/cors';
+import Koa from 'koa';
+import bodyParser from 'koa-body';
+import koaLogger from 'koa-logger';
+import koaHelmet from 'koa-helmet';
+import createError from 'http-errors';
+import cors from '@koa/cors';
 
-export const koa = (router: any, logger: any) => {
+export const koaCore = (router: any, console: any) => {
   const app = new Koa();
 
   app.use(async (ctx, next) => {
@@ -20,24 +19,20 @@ export const koa = (router: any, logger: any) => {
 
   app.use(
     bodyParser({
-      urlencoded: true
+      urlencoded: true,
     })
   );
+
+  app.use(koaHelmet());
 
   app.use(koaLogger());
 
   app.use(async (ctx, next) => {
     try {
-
+      await next();
     } catch (e) {
       if (!e.expose) {
-        ctx.status = 500;
-        ctx.body = {
-          errors: [{
-            code: 500,
-            message: 'unexpected error'
-          }]
-        }
+        ctx.app.emit('error', e, ctx);
       } else {
         ctx.status = e.statusCode || e.status || 500;
         ctx.body = {
@@ -45,7 +40,7 @@ export const koa = (router: any, logger: any) => {
           detail: process.env.env === 'development' ? e : undefined,
         };
 
-        ctx.app.emit('error', e, ctx)
+        ctx.app.emit('error', e, ctx);
       }
     }
   });
@@ -73,13 +68,14 @@ export const koa = (router: any, logger: any) => {
         errors: [{code: 404, message: 'not found'}],
       })
     );
+
     await next();
   });
 
   app.on('error', (err, ctx) => {
-    console.error(err.message);
+    console.info(err);
     console.log(ctx.request.body);
   });
 
   return app;
-}
+};
