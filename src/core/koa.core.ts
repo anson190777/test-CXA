@@ -63,8 +63,8 @@ export const koaCore = (router: any, console: any) => {
 
   app.use(async (ctx, next) => {
     ctx.throw(
-      createError(404, 'not found', {
-        errors: [{code: 404, message: 'not found'}],
+      createError(400, 'INVALID_REQUEST', {
+        errors: [{code: 'INVALID_REQUEST', message: 'Invalid request'}],
       })
     );
 
