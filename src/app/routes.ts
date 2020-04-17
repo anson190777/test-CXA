@@ -1,10 +1,18 @@
 import Router from 'koa-router';
-import {createUser} from './functions/createUser';
-import {login} from './functions/login';
-import {getUserByEmail} from './functions/getUserByEmail';
-import {validator} from "../middlewares/validators";
-import {registerByEmail, login as loginSchema, getEmail} from './schemas/users.schema'
-import {authz, checkEmailExisted, checkEmailNotFound} from "../middlewares/authz";
+import { createUser } from './functions/createUser';
+import { login } from './functions/login';
+import { getUserByEmail } from './functions/getUserByEmail';
+import { validator } from '../middlewares/validators';
+import {
+  registerByEmail,
+  login as loginSchema,
+  getEmail,
+} from './schemas/users.schema';
+import {
+  authz,
+  checkEmailExisted,
+  checkEmailNotFound,
+} from '../middlewares/authz';
 
 const router = new Router();
 
@@ -15,22 +23,25 @@ router.get('/healthcheck', ctx => {
   };
 });
 
-router.get('/api/v1/users',
+router.get(
+  '/api/v1/users',
   authz,
   validator(getEmail, 'query'),
-  getUserByEmail
+  getUserByEmail,
 );
 
-router.post('/api/v1/users/signup',
+router.post(
+  '/api/v1/users/signup',
   validator(registerByEmail, ''),
   checkEmailExisted,
-  createUser
+  createUser,
 );
 
-router.post('/api/v1/users/signin',
+router.post(
+  '/api/v1/users/signin',
   validator(loginSchema, ''),
   checkEmailNotFound,
-  login
+  login,
 );
 
-export {router}
+export { router };

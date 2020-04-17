@@ -1,6 +1,6 @@
-import {v4 as uuidv4} from 'uuid';
-import {signJwt, decode} from './jwtHelper'
-import * as keys from '../lib/keys'
+import { v4 as uuidv4 } from 'uuid';
+import { signJwt, decode } from './jwtHelper';
+import * as keys from '../lib/keys';
 
 export const generateId = uuidv4();
 
@@ -15,4 +15,5 @@ export const generateJWT = (data: any) =>
     }
   });
 
-export const verifyToken = (token: string) => decode(token)(keys.jwtPublicKey)({algorithms: ['RS256']});
+export const verifyToken = (token: string) =>
+  decode(token)(keys.jwtPublicKey)({ algorithms: ['RS256'] });

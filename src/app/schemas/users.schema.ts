@@ -3,9 +3,9 @@ export const registerByEmail = {
   additionalProperties: false,
   required: ['name', 'password', 'email'],
   properties: {
-    name: {type: 'string', minLength: 2},
-    email: {type: 'string', format: 'email'},
-    password: {type: 'string'},
+    name: { type: 'string', minLength: 2 },
+    email: { type: 'string', format: 'email' },
+    password: { type: 'string' },
   },
 };
 
@@ -14,8 +14,8 @@ export const login = {
   required: ['password'],
   additionalProperties: false,
   properties: {
-    email: {type: 'string', format: 'email'},
-    password: {type: 'string'},
+    email: { type: 'string', format: 'email' },
+    password: { type: 'string' },
   },
 };
 
@@ -24,6 +24,6 @@ export const getEmail = {
   required: ['email'],
   additionalProperties: false,
   properties: {
-    email: {type: 'string', format: 'email'},
+    email: { type: 'string', format: 'email' },
   },
 };

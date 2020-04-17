@@ -1,7 +1,10 @@
 import Ajv from 'ajv';
-import createError from 'http-errors'
+import createError from 'http-errors';
 
-export const validator = (schema: any, type: string) => async (ctx: any, next: any) => {
+export const validator = (schema: any, type: string) => async (
+  ctx: any,
+  next: any,
+) => {
   try {
     const ajv = new Ajv({
       removeAdditional: true,
@@ -9,12 +12,13 @@ export const validator = (schema: any, type: string) => async (ctx: any, next: a
       coerceTypes: true,
       allErrors: true,
       verbose: true,
-      errorDataPath: 'properties'
+      errorDataPath: 'properties',
     });
 
-    const validate = type === 'params'
-      ? ctx.params
-      : type === 'query'
+    const validate =
+      type === 'params'
+        ? ctx.params
+        : type === 'query'
         ? ctx.query
         : ctx.request.body;
 
@@ -26,9 +30,9 @@ export const validator = (schema: any, type: string) => async (ctx: any, next: a
       throw createError(422, 'validation error', {
         errors: ajv.errors.map(err => ({
           code: 422,
-          message: `${err.dataPath.slice(1)} ${err.message}`
-        }))
-      })
+          message: `${err.dataPath.slice(1)} ${err.message}`,
+        })),
+      });
     }
 
     await next();

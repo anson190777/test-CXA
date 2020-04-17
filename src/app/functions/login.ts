@@ -1,10 +1,10 @@
-import {findOneUser} from "../service/users/users.service";
-import {userWrong} from '../errors';
-import {generateJWT} from "../../lib/utils";
+import { findOneUser } from '../service/users/users.service';
+import { userWrong } from '../errors';
+import { generateJWT } from '../../lib/utils';
 
 export const login = async (ctx: any) => {
   try {
-    const {email, password} = ctx.request.body;
+    const { email, password } = ctx.request.body;
 
     const user = await findOneUser({
       email,
@@ -16,12 +16,12 @@ export const login = async (ctx: any) => {
 
     const acToken = await generateJWT({
       userId: user._id,
-      email: user.email
+      email: user.email,
     });
 
     ctx.status = 200;
     ctx.body = {
-      access_token: acToken
+      access_token: acToken,
     };
   } catch (e) {
     ctx.throw(e);

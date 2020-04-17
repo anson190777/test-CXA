@@ -20,7 +20,7 @@ export const koaCore = (router: any, console: any) => {
   app.use(
     bodyParser({
       urlencoded: true,
-    })
+    }),
   );
 
   app.use(koaHelmet());
@@ -51,8 +51,8 @@ export const koaCore = (router: any, console: any) => {
     ) {
       ctx.throw(
         createError(415, 'unsupported media type', {
-          errors: [{code: 415, message: 'unsupported media type'}],
-        })
+          errors: [{ code: 415, message: 'unsupported media type' }],
+        }),
       );
     } else {
       await next();
@@ -64,8 +64,8 @@ export const koaCore = (router: any, console: any) => {
   app.use(async (ctx, next) => {
     ctx.throw(
       createError(400, 'INVALID_REQUEST', {
-        errors: [{code: 'INVALID_REQUEST', message: 'Invalid request'}],
-      })
+        errors: [{ code: 'INVALID_REQUEST', message: 'Invalid request' }],
+      }),
     );
 
     await next();

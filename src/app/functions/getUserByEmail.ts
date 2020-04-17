@@ -1,11 +1,11 @@
-import {findOneUser} from '../service/users/users.service'
-import {notFound} from "../errors";
+import { findOneUser } from '../service/users/users.service';
+import { notFound } from '../errors';
 
 export const getUserByEmail = async (ctx: any) => {
   try {
-    const {email} = ctx.query;
+    const { email } = ctx.query;
 
-    const user = await findOneUser({email: email, isDeleted: false});
+    const user = await findOneUser({ email: email, isDeleted: false });
 
     if (!user) notFound('Account');
 
@@ -16,6 +16,6 @@ export const getUserByEmail = async (ctx: any) => {
       name: user.name,
     };
   } catch (e) {
-    ctx.throw(e)
+    ctx.throw(e);
   }
 };

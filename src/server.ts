@@ -1,15 +1,17 @@
 import http from 'http';
-import {koaCore} from './core/koa.core'
-import {router} from './app/routes'
-import * as config from '../config/config'
-import {MongoHelper} from './core/mongo.core'
+import { koaCore } from './core/koa.core';
+import { router } from './app/routes';
+import * as config from '../config/config';
+import { MongoHelper } from './core/mongo.core';
 
 const startApiServer = () => {
   new Promise((resolve, reject) => {
-    http.createServer(koaCore(router, console).callback()).listen(config.PORT, function () {
-      return resolve();
-    })
-  })
+    http
+      .createServer(koaCore(router, console).callback())
+      .listen(config.PORT, function() {
+        return resolve();
+      });
+  });
 };
 
 const start = async () => {
