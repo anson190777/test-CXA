@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+//generate token by payload and private key
 export const signJwt = (payload: any, privateKey: string) =>
   new Promise((resolve, reject) => {
     jwt.sign(
@@ -16,5 +17,7 @@ export const signJwt = (payload: any, privateKey: string) =>
     );
   });
 
+
+//decode token into payload
 export const decode = (token: any) => (publicKey: any) => (option: any) =>
   jwt.verify(token, publicKey, option);

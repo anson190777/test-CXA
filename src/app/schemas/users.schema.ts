@@ -1,3 +1,4 @@
+//register email schema
 export const registerByEmail = {
   type: 'object',
   additionalProperties: false,
@@ -9,6 +10,7 @@ export const registerByEmail = {
   },
 };
 
+//login schema
 export const login = {
   type: 'object',
   required: ['password'],
@@ -19,6 +21,7 @@ export const login = {
   },
 };
 
+//get email schema
 export const getEmail = {
   type: 'object',
   required: ['email'],

@@ -9,6 +9,7 @@ export class MongoHelper {
     db: null;
   }
 
+  //connect server with database
   public static connect(url: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       if (this.db) resolve(this.db);
@@ -29,6 +30,7 @@ export class MongoHelper {
     });
   }
 
+  //disconnect db
   public static disconnect(): void {
     MongoHelper.client.close();
   }

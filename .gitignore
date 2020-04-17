@@ -4,3 +4,5 @@
 .idea/
 process.env
 *.*~
+./jwtRS256.sh
+./jwtRS256.key

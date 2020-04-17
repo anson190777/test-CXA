@@ -27,6 +27,7 @@ export const koaCore = (router: any, console: any) => {
 
   app.use(koaLogger());
 
+  //export log error in handle server
   app.use(async (ctx, next) => {
     try {
       await next();
@@ -44,6 +45,8 @@ export const koaCore = (router: any, console: any) => {
     }
   });
 
+
+  //unsupported media type for different application/json
   app.use(async (ctx, next) => {
     if (
       ctx.request.method !== 'GET' &&
@@ -61,6 +64,7 @@ export const koaCore = (router: any, console: any) => {
 
   app.use(router.routes());
 
+  // Invalid request when wrong url and unexpected error
   app.use(async (ctx, next) => {
     ctx.throw(
       createError(400, 'INVALID_REQUEST', {
@@ -71,6 +75,7 @@ export const koaCore = (router: any, console: any) => {
     await next();
   });
 
+  //log in console in error
   app.on('error', (err, ctx) => {
     console.info(err);
     console.log(ctx.request.body);

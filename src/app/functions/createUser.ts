@@ -3,6 +3,7 @@ import { generateId } from '../../lib/utils';
 
 export const createUser = async (ctx: any) => {
   try {
+    //get body in request
     const { name, email, password } = ctx.request.body;
 
     const user = {
@@ -16,10 +17,12 @@ export const createUser = async (ctx: any) => {
       updatedAt: Date.now(),
     };
 
+    //insert user in service
     const userInsert = await registerByEmail(user);
 
     console.log(`${userInsert.ops[0].email} inserted database`);
 
+    //response
     ctx.status = 204;
     ctx.body = undefined;
   } catch (e) {

@@ -16,32 +16,27 @@ import {
 
 const router = new Router();
 
-router.get('/healthcheck', ctx => {
-  ctx.status = 200;
-  ctx.response.body = {
-    tick: Date.now(),
-  };
-});
-
+//get user by email
 router.get(
   '/api/v1/users',
-  authz,
-  validator(getEmail, 'query'),
-  getUserByEmail,
+  authz, //check token in url request
+  validator(getEmail, 'query'), //check validate email
+  getUserByEmail, //handle get user by email
 );
 
+//create user by email
 router.post(
   '/api/v1/users/signup',
-  validator(registerByEmail, ''),
-  checkEmailExisted,
-  createUser,
+  validator(registerByEmail, ''), //check validate register email
+  checkEmailExisted, //check email existed
+  createUser, //handle create user by email
 );
 
 router.post(
   '/api/v1/users/signin',
-  validator(loginSchema, ''),
-  checkEmailNotFound,
-  login,
+  validator(loginSchema, ''), //check validate login
+  checkEmailNotFound, //check email not found
+  login,  //handle login by email
 );
 
 export { router };

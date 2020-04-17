@@ -1,5 +1,6 @@
 import createError from 'http-errors';
 
+//check email exist in db
 export const emailExist = (email: string) => {
   throw createError(422, 'UnprocessableEntity', {
     errors: [
@@ -11,6 +12,7 @@ export const emailExist = (email: string) => {
   });
 };
 
+//check object not found in db
 export const notFound = (object: string) => {
   throw createError(404, 'not found', {
     errors: [
@@ -22,6 +24,7 @@ export const notFound = (object: string) => {
   });
 };
 
+//check login user
 export const userWrong = () => {
   throw createError(409, 'INVALID_CREDENTIALS', {
     errors: [
@@ -33,6 +36,7 @@ export const userWrong = () => {
   });
 };
 
+//check token in user
 export const authorization = () => {
   throw createError(403, 'PERMISSION_DENIED', {
     errors: [

@@ -4,6 +4,7 @@ import { router } from './app/routes';
 import * as config from '../config/config';
 import { MongoHelper } from './core/mongo.core';
 
+//create server with port 3000
 const startApiServer = () => {
   new Promise((resolve, reject) => {
     http
@@ -14,6 +15,7 @@ const startApiServer = () => {
   });
 };
 
+//start server and connect database
 const start = async () => {
   try {
     await startApiServer();
@@ -29,6 +31,7 @@ const start = async () => {
 
 start();
 
+//shutdown server
 const shutdown = (signal: any) => async (err: any) => {
   console.log(`${signal}...`);
   if (err) console.error(err.stack || err);

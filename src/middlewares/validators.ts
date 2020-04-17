@@ -6,6 +6,7 @@ export const validator = (schema: any, type: string) => async (
   next: any,
 ) => {
   try {
+    //config schema input in ajv
     const ajv = new Ajv({
       removeAdditional: true,
       useDefaults: true,
@@ -15,6 +16,7 @@ export const validator = (schema: any, type: string) => async (
       errorDataPath: 'properties',
     });
 
+    //get condition request url for check validate
     const validate =
       type === 'params'
         ? ctx.params
@@ -22,6 +24,7 @@ export const validator = (schema: any, type: string) => async (
         ? ctx.query
         : ctx.request.body;
 
+    //check validate by ajv
     const valid = ajv
       .addSchema(schema, 'bodySchema')
       .validate('bodySchema', validate);
