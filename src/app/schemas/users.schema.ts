@@ -14,7 +14,16 @@ export const login = {
   required: ['password'],
   additionalProperties: false,
   properties: {
-    email: { type: 'string', format: 'email' },
-    password: { type: 'string' },
+    email: {type: 'string', format: 'email'},
+    password: {type: 'string'},
+  },
+};
+
+export const getEmail = {
+  type: 'object',
+  required: ['email'],
+  additionalProperties: false,
+  properties: {
+    email: {type: 'string', format: 'email'},
   },
 };

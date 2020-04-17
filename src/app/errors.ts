@@ -26,3 +26,12 @@ export const userWrong = () => {
     }]
   })
 };
+
+export const authorization = () => {
+  throw createError(403, 'PERMISSION_DENIED', {
+    errors: [{
+      code: 'PERMISSION_DENIED',
+      message: 'Permission denied. Please login then try again',
+    }]
+  })
+}

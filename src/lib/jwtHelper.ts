@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 export const signJwt = (payload: any, privateKey: string) =>
   new Promise((resolve, reject) => {
     jwt.sign(
-      {...payload, exp: Date.now(), iss: 'abc123'},
+      {...payload, iss: 'abc123'},
       privateKey,
       {algorithm: 'RS256'},
       (err, token) => {
@@ -15,3 +15,5 @@ export const signJwt = (payload: any, privateKey: string) =>
       }
     )
   });
+
+export const decode = (token: any) => (publicKey: any) => (option: any) => jwt.verify(token, publicKey, option);

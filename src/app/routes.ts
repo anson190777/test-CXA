@@ -1,9 +1,10 @@
 import Router from 'koa-router';
 import {createUser} from './functions/createUser';
 import {login} from './functions/login';
+import {getUserByEmail} from './functions/getUserByEmail';
 import {validator} from "../middlewares/validators";
-import {registerByEmail, login as loginSchema} from './schemas/users.schema'
-import {checkEmailExisted, checkEmailNotFound} from "../middlewares/authz";
+import {registerByEmail, login as loginSchema, getEmail} from './schemas/users.schema'
+import {authz, checkEmailExisted, checkEmailNotFound} from "../middlewares/authz";
 
 const router = new Router();
 
@@ -14,9 +15,11 @@ router.get('/healthcheck', ctx => {
   };
 });
 
-router.get('/api/v1/users', async (ctx) => {
-  ctx.body = 'Hello World!';
-});
+router.get('/api/v1/users',
+  authz,
+  validator(getEmail, 'query'),
+  getUserByEmail
+);
 
 router.post('/api/v1/users/signup',
   validator(registerByEmail, ''),
